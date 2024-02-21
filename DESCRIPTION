@@ -1,0 +1,25 @@
+Package: pgimportr
+Title: Import REDCap Form Data to Program Grant Object
+Version: 0.0.0.9000
+Authors@R: 
+    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+Description: This library is one of a set of tools for managing tracking data
+  associated with program grants (large, multi-project NIH grants). REDCap forms
+  have been developed to allow data entry. This tool imports the REDCap data and
+  with some data wrangling, converts it into reportable form as an R table with
+  formatted text. A companion package (pgreportr) is used for filtering, summarizing,
+  and other activities. 
+License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
+    license
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
+Imports: 
+    dplyr,
+    rappdirs,
+    REDCapR,
+    rlang
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3

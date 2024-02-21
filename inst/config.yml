@@ -1,0 +1,105 @@
+default:
+  program_grant:
+    name: "PHSU-MCC U54 Partnership"
+    # The program grant has years it has been running. This is important
+    # for attributing outcomes in reporting. Currently the assumption is
+    # that the years are contiguous and ordered. Bridge funding, etc can
+    # be named specifically.
+    grant_years:
+      # In our case, we had a planning (U56) grant which is a catch-all
+      # for any prior activity (before Y01).
+      # TODO: Infer end dates (one year, next start date - 1)
+      U56:
+        start_date: 2000-01-01
+        end_date: 2012-08-31
+        comment: "Pre-U54 time"
+      Y01:
+        start_date: 2012-09-01
+        end_date: 2013-08-31
+      Y02:
+        start_date: 2013-09-01
+        end_date: 2014-08-31
+      Y03:
+        start_date: 2014-09-01
+        end_date: 2015-08-31
+      Y04:
+        start_date: 2015-09-01
+        end_date: 2016-08-31
+      Y05:
+        start_date: 2016-09-01
+        end_date: 2017-08-31
+      Y06:
+        start_date: 2017-09-01
+        end_date: 2018-08-31
+      Y07:
+        start_date: 2018-09-01
+        end_date: 2019-08-31
+      Y08:
+        start_date: 2019-09-01
+        end_date: 2020-08-31
+      Y09:
+        start_date: 2020-09-01
+        end_date: 2021-08-31
+      Y10:
+        start_date: 2021-09-01
+        end_date: 2022-08-31
+      Y10S1:
+        start_date: 2022-09-01
+        end_date: 2023-08-31
+      Y11:
+        start_date: 2023-09-01
+        end_date: 2024-08-31
+      Y12:
+        start_date: 2024-09-01
+        end_date: 2025-08-31
+      Y13:
+        start_date: 2025-09-01
+        end_date: 2026-08-31
+      Y14:
+        start_date: 2026-09-01
+        end_date: 2027-08-31
+      Y15:
+        start_date: 2027-09-01
+        end_date: 2028-08-31
+    # List the cores that are part of the grant. Currently just names.
+    cores:
+      - "QSC"
+      - "PRBB"
+      - "REC"
+      - "Outreach Core"
+      - "Admin Core"
+      - "PEC"
+    # This section is not completely clear to me
+    other_support:
+      - "Research Project"
+      - "US-LACRN Supplement"
+    pgimportr:
+      ISUP: "PHSU"
+      CC: "MCC"
+      R_grants:
+        - "R00"
+        - "R01"
+        - "R03"
+        - "R15"
+        - "R21"
+        - "R25"
+        - "R50"
+        - "R34"
+    var_labels:
+      pg_year: "U54 Year"
+      pg_year_submitted: "U54 Fiscal Year Submitted"
+      pg_year_funded: "U54 Fiscal Year Funded"
+      pg_year_not_funded: "U54 Fiscal Year Not Funded"
+      core_support: "U54 Core Support"
+      other_support: "U54 Other Support"
+      support: "U54 Support"
+      submission_date: "Submission Date"
+      grant_status: "Grant Status"
+      funding_start_date: "Funding Start Date"
+      funding_end_date: "Funding End Date"
+
+
+  # pgimportr operational defaults
+  pgimportr:
+    # Suppress messages during execution
+    quiet: TRUE
