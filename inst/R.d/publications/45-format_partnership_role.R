@@ -19,7 +19,8 @@ function(x) {
               dplyr::pick(c(dplyr::starts_with("author_partnership_role___"),dplyr::all_of("partnership_role_other"))),
               col = "X", sep=", ",remove = TRUE, na.rm=TRUE
             ) |>
-              dplyr::pull("X"),
+              dplyr::pull("X") |>
+              dplyr::na_if(""),
           ) |>
           dplyr::mutate(
             partnership_role = dplyr::na_if(partnership_role, "None")
