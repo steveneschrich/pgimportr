@@ -7,7 +7,14 @@
 select_redcap_control_columns(x, negate = FALSE, verbose = FALSE)
 }
 \arguments{
-\item{verbose}{}
+\item{x}{A data frame imported from redcap form}
+
+\item{negate}{(FALSE) Should redcap columns be extracted (FALSE) or removed (TRUE)}
+
+\item{verbose}{Report the number of columns removed to console}
+}
+\value{
+A data frame with the REDCap-related columns selected (or removed).
 }
 \description{
 There are a few redcap control columns in the raw export

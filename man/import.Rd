@@ -7,7 +7,7 @@
 import(
   uri,
   token,
-  which = c("grants", "publications"),
+  which = c("grants", "publications", "presentations"),
   use_cache = TRUE,
   verbose = TRUE
 )

@@ -18,17 +18,8 @@ is_grant_table <- function(x) {
   is(x, "grant_table")
 }
 
-#' Title
-#'
-#' @param x
-#'
-#' @return
-#' @export
-#'
-#' @examples
-is_publication_table <- function(x) {
-  is(x, "publication_table")
-}
+
+
 
 
 #' Title
@@ -77,6 +68,10 @@ dictionary <- function (x, ...) {
   UseMethod("dictionary", x)
 }
 
+
+
+
+
 #' Title
 #'
 #' @param x
@@ -85,9 +80,11 @@ dictionary <- function (x, ...) {
 #' @export
 #'
 #' @examples
-dictionary.publication_table <- function(x) {
-  attr(x,  "dictionary")
+is_publication_table <- function(x) {
+  is(x, "publication_table")
 }
+
+
 #' Title
 #'
 #' @param x
@@ -108,3 +105,62 @@ as_publication_table <- function(x, source = NULL) {
 
   x
 }
+
+#' Title
+#'
+#' @param x
+#'
+#' @return
+#' @export
+#'
+#' @examples
+dictionary.publication_table <- function(x) {
+  attr(x,  "dictionary")
+}
+
+
+#' Title
+#'
+#' @param x
+#'
+#' @return
+#' @export
+#'
+#' @examples
+is_presentation_table <- function(x) {
+  is(x, "presentation_table")
+}
+
+#' Title
+#'
+#' @param x
+#'
+#' @return
+#' @export
+#'
+#' @examples
+as_presentation_table <- function(x, source = NULL) {
+  checkmate::assert_data_frame(x)
+
+  if ( is.null(source) ) {
+    source <- list(raw=NULL, label=NULL, metadata=NULL)
+  }
+  x <- tibble::new_tibble(x, class = "presentation_table")
+  attr(x, "source") <- source
+  attr(x, "dictionary") <- create_dictionary(source$metadata)
+
+  x
+}
+
+#' Title
+#'
+#' @param x
+#'
+#' @return
+#' @export
+#'
+#' @examples
+dictionary.presentation_table <- function(x) {
+  attr(x,  "dictionary")
+}
+

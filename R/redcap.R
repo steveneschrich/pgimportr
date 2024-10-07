@@ -24,7 +24,6 @@
 #'  URI reference.
 #'
 #' @export
-#' @examples
 import_redcap_data_online <- function(uri, token, verbose = TRUE) {
   ds_raw <- REDCapR::redcap_read(redcap_uri = uri, token = token, raw_or_label = "raw", verbose = verbose)
   ds_label <- REDCapR::redcap_read(redcap_uri = uri, token = token, raw_or_label = "label", verbose = verbose)
@@ -44,7 +43,6 @@ import_redcap_data_online <- function(uri, token, verbose = TRUE) {
 #'
 #' @return A full pathname to a cache file for the URI
 #'
-#' @examples
 get_cache_file <- function(uri, token) {
   file.path(
     rappdirs::user_cache_dir(appname = "pgimportr"),
@@ -76,7 +74,6 @@ get_cache_file <- function(uri, token) {
 #' @return A list of raw, labelled and data dictionary (see [read_redcap_data_online()])
 #' @export
 #'
-#' @examples
 import_redcap_data <- function(uri, token, use_cache = TRUE, verbose = TRUE) {
   uc <- get_cache_file(uri, token)
 

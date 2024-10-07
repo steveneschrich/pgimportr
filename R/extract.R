@@ -95,3 +95,37 @@ extract_publications <- function(redcap_data) {
 
   x
 }
+
+extract_presentations <- function(redcap_data) {
+  checkmate::assert_list(redcap_data)
+  checkmate::assert_subset("label",names(redcap_data))
+
+  # Use the labelled data. The redcap_repeat_instrument is either NA (a publication)
+  # or "Authors".
+  x <- dplyr::filter(redcap_data$label, is.na(redcap_repeat_instrument))
+
+  # Remove presenter-related columns
+  x <- select_presenter_columns(x, negate = TRUE)
+
+  # Remove control columns
+  x <- select_redcap_control_columns(x, negate = TRUE)
+
+  x
+}
+extract_presenters <- function(redcap_data) {
+  checkmate::assert_list(redcap_data)
+  checkmate::assert_subset("label", names(redcap_data))
+
+  # Use the labelled data. The redcap_repeat_instrument is either NA (a publication)
+  # or "Author".
+  x <- dplyr::filter(redcap_data$label, redcap_repeat_instrument == "Presenters")
+
+
+  # Remove non-author columns.
+  x <- select_presenter_columns(x, negate = FALSE)
+
+
+  x
+
+}
+

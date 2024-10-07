@@ -7,10 +7,14 @@
 select_author_columns(x, negate = FALSE, verbose = FALSE)
 }
 \arguments{
-\item{d}{A tibble containing publications and authors.}
+\item{x}{A tibble containing publications and authors.}
+
+\item{negate}{(FALSE) Should author columns be extracted (FALSE) or removed (TRUE)}
+
+\item{verbose}{Report the number of columns removed to console}
 }
 \value{
-A modified tibble with publication entries removed.
+A data frame with the Author-related columns selected (or removed).
 }
 \description{
 The publication table includes rows (and columns)

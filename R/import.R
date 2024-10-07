@@ -18,17 +18,18 @@
 #' between objects. For instance, the concept of a program grant
 #' year, creators (whether grant investigators or publication authors).
 #'
-#'
-import <- function(uri, token, which = c("grants","publications"),
+#' @export
+import <- function(uri, token, which = c("grants","publications","presentations"),
                    use_cache = TRUE, verbose = TRUE) {
 
   which <- match.arg(which)
 
-  if ( which == "grants") {
-    x <- import_grants(uri, token, use_cache = use_cache, verbose = verbose)
-  } else {
-    x <- import_publications(uri, token, use_cache = use_cache, verbose = verbose)
-  }
+  x <- switch(
+    which,
+    grants = import_grants(uri, token, use_cache = use_cache, verbose = verbose),
+    publications = import_publications(uri, token, use_cache = use_cache, verbose = verbose),
+    presentations = import_presentations(uri, token, use_cache=use_cache, verbose = verbose)
+  )
 
   x
 }
@@ -78,16 +79,7 @@ import_grants<-function(uri, token, use_cache = TRUE, verbose = TRUE) {
   grant_table
 }
 
-etl_grants <- function(uri, token, use_cache = TRUE, verbose = TRUE, file = "grants.rds") {
 
-  get_config()
-  g <- import_grants(uri, token, use_cache , verbose ) |>
-    transform_grants()
-
-  saveRDS(g, file = file)
-
-  g
-}
 
 
 
@@ -109,13 +101,72 @@ import_publications<-function(uri, token, use_cache = TRUE, verbose = TRUE) {
   pub_table
 }
 
-etl_publications <- function(uri, token, use_cache = TRUE, verbose = TRUE, file = "publications.rds") {
+
+
+import_presentations<-function(uri, token, use_cache = TRUE, verbose = TRUE) {
+
+  redcap_data <- import_redcap_data(uri, token, use_cache = use_cache, verbose = verbose)
+
+
+  # Create the presentations and presenters separately
+  presentations <- extract_presentations(redcap_data)
+  presenters <- extract_presenters(redcap_data)
+
+  # Join by the grant id, then nest the investigator table inside the investigators variable
+  presentation_table<-dplyr::nest_join(presentations, presenters, by="record_id",
+                              name = "presenters")
+
+  presentation_table <- as_presentation_table(presentation_table, redcap_data)
+
+  presentation_table
+}
+
+
+
+#' Import raw data to corresponding object
+#'
+#' @description Import REDcap data into corresponding object and transform
+#'  variables into usable reporting format.
+#'
+#' @details This function is likely the main driver of functionality within
+#' the library. Specifically, this function will import data from redcap
+#' (possibly using cached data if requested) then transform variables into
+#' useful reporting variables suitable for the library `pgreportr`.
+#'
+#' There are three different input types (grants, publications and
+#' presentations) that this function will handle.
+#'
+#' @param which The object type to load (grants, publications, presentations)
+#' @param uri REDCap URI to import from
+#' @param token REDCap URI Authentication token for importing
+#' @param use_cache If previously run, the cached object can be used instead of reloading
+#' @param verbose Should the process be verbose so the steps can be viewed
+#' @param file Output file to store results (useful for caching).
+#'
+#' @return An object (grants,publications, presentations) which is mostly
+#'  a data frame with an attached data dictionary.
+#' @export
+#'
+#' @examples
+etl <- function(
+    which = c("grants","publications","presentations"),
+    uri, token, use_cache = TRUE, verbose = TRUE, file = NULL
+) {
+
+  which <- match.arg(which)
+  if ( is.null(file) )
+    file <- paste0(which, ".rds")
 
   get_config()
-  p <- import_publications(uri, token, use_cache , verbose ) |>
-    transform_publications()
+  p <- import(
+    uri = uri, token = token,
+    which = which,
+    use_cache=use_cache, verbose=verbose
+  ) |>
+    transform()
 
   saveRDS(p, file = file)
 
   p
 }
+
