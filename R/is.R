@@ -40,7 +40,7 @@
 #' @examples
 #' \dontrun{calculate_is_current_esi_related(investigators[[1]])}
 calculate_is_current_esi_related <- function(people) {
-  any(people[["isPartnershipRole_ESI"]])
+  any(people[["isPartnershipRole_Current ESI"]])
 }
 #'  Determine if any people are Former ESI status
 #'
@@ -77,7 +77,7 @@ calculate_is_former_esi_related <- function(people) {
 #'
 #' @examples
 #' \dontrun{calculate_is_esi_related(investigators[[1]])}
-calculate_is_esi_related <- function(people) {
+calculate_is_any_esi_related <- function(people) {
   calculate_is_current_esi_related(people) | calculate_is_former_esi_related(people)
 }
 

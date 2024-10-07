@@ -4,7 +4,7 @@
 \alias{format_creator_summary}
 \title{Derive creator name and roles as single text}
 \usage{
-format_creator_summary(name, pg_role, role = NA, is_ESI = FALSE, ...)
+format_creator_summary(name, pg_role, role = NA, is_Current_ESI = FALSE, ...)
 }
 \arguments{
 \item{investigators}{The investigators tibble for a grant.}

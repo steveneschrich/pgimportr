@@ -9,7 +9,7 @@ function(x) {
           author_summary = format_creator_summary(
             name = author_name,
             pg_role = partnership_role,
-            is_ESI = isPartnershipRole_ESI
+            is_Current_ESI = `isPartnershipRole_Current ESI`
           )
         )
       }

@@ -10,7 +10,7 @@ function(x) {
             name = investigator_name,
             pg_role = partnership_role,
             role = investigator_role,
-            is_ESI = isPartnershipRole_ESI
+            is_Current_ESI = `isPartnershipRole_Current ESI`
           )
         )
       }

@@ -15,7 +15,7 @@ function(x) {
     # NIH grants can be R-series grants, based on configuration.
     is_grant_rtype = ((grant_agency == "NIH") & (grant_type %in% rgrants)),
     # ESI status is whether any investigator is an ESI
-    is_esi_related = purrr::map_lgl(investigators, calculate_is_esi_related),
+    is_any_esi_related = purrr::map_lgl(investigators, calculate_is_any_esi_related),
     is_current_esi_related = purrr::map_lgl(investigators, calculate_is_current_esi_related),
     is_former_esi_related = purrr::map_lgl(investigators, calculate_is_former_esi_related),
 

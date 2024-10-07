@@ -24,12 +24,12 @@
 #'
 #' @return A formatted string (or vector of strings) representing investigators
 #'
-format_creator_summary<-function(name, pg_role, role=NA, is_ESI=FALSE, ...) {
+format_creator_summary<-function(name, pg_role, role=NA, is_Current_ESI=FALSE, ...) {
 
   sprintf("%s%s%s%s",format_name(name, ...),
           ifelse(!is.na(pg_role), "*", ""),
           ifelse(is.na(role), "", paste0(" (",role,")")),
-          ifelse(is_ESI, " [ESI]","")
+          ifelse(is_Current_ESI, " [Current ESI]","")
   )
 
 
