@@ -65,6 +65,19 @@ format_name<-function(n, use_degree=TRUE, use_first_name_only=FALSE,
       NA
   })
 
+  nameswaps <- purrr::map2(last_name, given_names, \(.ln, .gn) {
+    # If the last name length is 1, then this is (heuristically) a first initial,
+    # meaning that the last name and given names were swapped.
+    lastname<-.ln
+    givenname <- .gn
+    if (nchar(.ln) == 1) {
+      lastname <- .gn[1]
+      givenname <- c(tail(.gn, -1), .ln)
+    }
+    list(last_name=lastname, given_names=givenname)
+  })
+  last_name <- purrr::map(nameswaps, "last_name")
+  given_names <- purrr::map(nameswaps, "given_names")
 
   # Given name initials are the first character of all non-last name elements.
   # Note we replace empty with NA (degenerate case of no first name).
@@ -107,11 +120,12 @@ format_name<-function(n, use_degree=TRUE, use_first_name_only=FALSE,
   })
 
 
-  if ( use_degree )
+  if ( use_degree ) {
+    name_and_degree[,2] <- dplyr::na_if(name_and_degree[,2],"")
     name <- purrr::map2_chr(name, name_and_degree[,2], \(.x, .y) {
       stringr::str_flatten_comma(c(.x, .y), na.rm = TRUE)
     })
-
+  }
   name
 
 }
