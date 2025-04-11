@@ -90,8 +90,10 @@ import_redcap_data <- function(uri, token, use_cache = TRUE, verbose = TRUE) {
       cli::cli_alert_success("Retrieved {uri} data from local cache.")
   } else {
     rd <- import_redcap_data_online(uri, token)
+    if ( verbose )
+      cli::cli_alert_info("Storing {uri} data to cache file {uc}.")
     if ( ! dir.exists(dirname(uc)))
-      dir.create(dirname(uc))
+      dir.create(dirname(uc), recursive=TRUE)
     saveRDS(rd, file = uc)
     if ( verbose ) cli::cli_alert_success("Retrieved {uri} data from server.")
   }
